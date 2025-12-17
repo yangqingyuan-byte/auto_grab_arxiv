@@ -41,7 +41,7 @@ python gui.py
 ```
 
 **Option 2: Use pre-built executable**
-1. Download the latest release from the [Releases](../../releases) page
+1. Download the latest release from the [Releases](https://github.com/yangqingyuan-byte/auto_grab_arxiv/releases/tag/exe) page
 2. Extract the `arxiv_paper_gui` folder
 3. Run `arxiv_paper_gui.exe`
 
@@ -164,7 +164,7 @@ python gui.py
 ```
 
 **方式二：使用预编译可执行文件**
-1. 从 [Releases](../../releases) 页面下载最新版本
+1. 从 [Releases](https://github.com/yangqingyuan-byte/auto_grab_arxiv/releases/tag/exe) 页面下载最新版本
 2. 解压 `arxiv_paper_gui` 文件夹
 3. 运行 `arxiv_paper_gui.exe`
 
