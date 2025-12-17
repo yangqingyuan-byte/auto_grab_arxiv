@@ -1,0 +1,38 @@
+# Build outputs
+dist/
+build/
+*.spec
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+gui_config.json
+*.xlsx
+*.pdf
+
+# PyInstaller
+*.manifest
+*.spec
+
