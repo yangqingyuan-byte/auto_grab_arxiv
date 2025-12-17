@@ -31,6 +31,7 @@ Thumbs.db
 gui_config.json
 *.xlsx
 *.pdf
+*.zip
 
 # PyInstaller
 *.manifest
