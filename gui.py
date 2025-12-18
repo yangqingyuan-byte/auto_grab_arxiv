@@ -137,9 +137,18 @@ def run_search(comment_text: str,
     try:
         log("开始检索 arXiv，请稍候...", text_widget)
 
-        # 1. 构造 query（只基于 comment）
+        # 1. 构造 query（只基于 comment，支持逗号分隔多个会议，使用 OR 逻辑）
         if comment_text.strip():
-            query = f'co:"{comment_text.strip()}"'
+            # 支持逗号分隔多个会议名称
+            comment_keywords = split_keywords(comment_text)
+            if len(comment_keywords) > 1:
+                # 多个关键词，用 OR 连接
+                query_parts = [f'co:"{kw}"' for kw in comment_keywords]
+                query = " OR ".join(query_parts)
+                log(f"📋 检测到多个会议关键词，使用 OR 逻辑: {', '.join(comment_keywords)}", text_widget)
+            else:
+                # 单个关键词
+                query = f'co:"{comment_keywords[0]}"'
         else:
             query = "all:time"  # 防止空查询，给一个宽泛条件
             log("⚠️ 未填写 comment 关键字，将使用一个非常宽泛的查询（all:time），后续完全依赖本地过滤。", text_widget)
@@ -154,6 +163,8 @@ def run_search(comment_text: str,
 
         title_keywords = split_keywords(title_keywords_str)
         abs_keywords = split_keywords(abs_keywords_str)
+        # 解析 comment 关键词（用于 Python 端再次验证）
+        comment_keywords = split_keywords(comment_text) if comment_text.strip() else []
 
         records = []
 
@@ -163,6 +174,12 @@ def run_search(comment_text: str,
             title = result.title or ""
             summary = result.summary or ""
             comment = result.comment or ""
+            
+            # 如果指定了 comment 关键词，在 Python 端再次验证（使用 OR 逻辑）
+            if comment_keywords:
+                comment_lower = comment.lower()
+                if not any(kw.lower() in comment_lower for kw in comment_keywords):
+                    continue
 
             if not match_keywords(title, title_keywords, title_mode):
                 continue
@@ -272,7 +289,7 @@ def main():
     comment_entry.grid(row=1, column=1, columnspan=2, sticky="we")
     ttk.Label(
         frm,
-        text="示例：AAAI 2026 或 NeurIPS 2025（顶会名称 + 空格 + 年份）",
+        text="示例：AAAI 2026 或 AAAI 2026, NeurIPS 2025（支持逗号分隔多个会议，使用 OR 逻辑）",
         foreground="gray"
     ).grid(row=1, column=3, columnspan=2, sticky="w")
 

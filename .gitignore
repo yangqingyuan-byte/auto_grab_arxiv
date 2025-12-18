@@ -32,6 +32,8 @@ gui_config.json
 *.xlsx
 *.pdf
 *.zip
+*.md
+*.png
 
 # PyInstaller
 *.manifest
