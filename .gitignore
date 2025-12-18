@@ -33,6 +33,7 @@ gui_config.json
 *.pdf
 *.zip
 *.md
+!README.md
 *.png
 
 # PyInstaller
